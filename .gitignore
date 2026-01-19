@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Entornos virtuales
+.venv/
+venv/
+
+# Ficheros de datos generados
+data/*.json
+data/*.db
+
+# Configuración del sistema
+.DS_Store
