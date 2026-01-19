@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Dict, Any
 #---------------------------------
 # Clase padre: RecursoDigital
 #---------------------------------
@@ -72,4 +73,33 @@ class RecursoDigital(ABC):
     # Método __str__
     def __str__(self):
         return f"[{self.id}] ({self.tipo()}) {self.descripcion_basica()}"
+    
+    # -------- JSON ---------
+    #Convierte la instancia de esta clase en una estructura Dict.
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "tipo": self.tipo(),
+            "recurso_id": self.__id,
+            "titulo": self.titulo,
+            "autor": self.autor,
+            "anio": self.anio
+        }
+    
+    #Convierte una estructura Dict en una instancia de la presente clase
+    @staticmethod
+    def from_dict(data: Dict[str, Any]) -> "RecursoDigital":
+        from models import LibroDigital, VideoCurso, Podcast
+
+        tipo = data["tipo"]
+
+        if tipo == "LibroDigital":
+            return LibroDigital.from_dict(data)
+        elif tipo == "VideoCurso":
+            return VideoCurso.from_dict(data)
+        elif tipo == "Podcast":
+            return Podcast.from_dict(data)
+        else:
+            raise ValueError("Tipo desconocido")
+
+
 
