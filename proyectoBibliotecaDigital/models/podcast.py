@@ -1,43 +1,68 @@
 from .recurso_digital import RecursoDigital
+from typing import Dict, Any
+
 
 #---------------------------------
 # Subclase: Podcast
 #---------------------------------
 
 class Podcast(RecursoDigital):
-    def __init__(self, titulo, autor, anio, num_episodios, tema):
-        super().__init__(titulo, autor, anio)
-        self.__num_episodios = None
-        self.__tema = None;
+    def __init__(self, id, titulo, autor, anio, episodio, url):
+        super().__init__(id, titulo, autor, anio)
+        self.__episodio = None
+        self.__url = None;
     
-        self.num_episodios = num_episodios
-        self.tema = tema
+        self.episodio = episodio
+        self.url = url
 
     @property
-    def num_episodios(self):
-        return self.__num_episodios
+    def episodio(self):
+        return self.__episodio
     
-    @num_episodios.setter
-    def num_episodios(self, num_episodios):
-        if not isinstance(num_episodios, int) or num_episodios < 0:
-            raise ValueError("El número de episodios debe ser un entero positivo")
-        self.__num_episodios = num_episodios
+    @episodio.setter
+    def episodio(self, episodio):
+        if not isinstance(episodio, int) or episodio < 0:
+            raise ValueError("El número de episodio debe ser un entero positivo")
+        self.__episodio = episodio
 
     @property
-    def tema(self):
-        return self.__tema
+    def url(self):
+        return self.__url
     
-    @tema.setter
-    def tema(self, tema):
-        if not tema or not isinstance(tema, str):
-            raise ValueError("El tema debe ser un texto no vacío")
-        self.__tema = tema
+    @url.setter
+    def url(self, url):
+        if not url or not isinstance(url, str):
+            raise ValueError("El url debe ser un texto no vacío")
+        self.__url = url
 
     def abrir(self):
-        return f"Reproduciendo podcast '{self.titulo}' sobre {self.tema}, episodios {self.num_episodios}..."
+        return f"Reproduciendo podcast '{self.titulo}' sobre {self.url}, episodio {self.episodio}..."
     
     def tipo(self):
         return "Podcast"
     
     def __str__(self):
-        return super().__str__() + f" - Nº episodios: {self.num_episodios} - tema: {self.tema}"
+        return super().__str__() + f" - Nº episodio: {self.episodio} - url: {self.url}"
+
+    # -------- JSON ---------
+    #Convierte la instancia de esta clase en una estructura Dict.
+    def to_dict(self) -> Dict[str, Any]:
+        d = super().to_dict()
+        d.update({
+            "episodio": self.episodio,
+            "url": self.url
+        })
+
+        return d
+    
+    #Convierte una estructura Dict en una instancia de la presente clase
+    @staticmethod
+    def from_dict(data: Dict[str, Any]) -> "RecursoDigital":
+        return Podcast(
+            id = int(data["id"]),
+            titulo=str(data["titulo"]),
+            autor=str(data["autor"]),
+            anio=int(data["anio"]),
+            episodio=int(data["episodio"]),
+            url=str(data["url"])
+        )

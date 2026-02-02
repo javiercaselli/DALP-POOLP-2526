@@ -6,8 +6,8 @@ from typing import Dict, Any
 #---------------------------------
 
 class LibroDigital(RecursoDigital):
-    def __init__(self, titulo, autor, anio, num_paginas, formato, isbn):
-        super().__init__(titulo, autor, anio)
+    def __init__(self, id, titulo, autor, anio, num_paginas, formato, isbn):
+        super().__init__(id, titulo, autor, anio)
         self.__num_paginas = None
         self.__formato = None
         self.__isbn = None
@@ -42,8 +42,8 @@ class LibroDigital(RecursoDigital):
     
     @isbn.setter
     def isbn(self, isbn):
-        if not isbn or not isinstance(isbn, int):
-            raise ValueError("El ISBN debe ser un número entero")
+        if not isbn or not isinstance(isbn, str):
+            raise ValueError("El ISBN debe ser un cadena de caracteres")
 
     def abrir(self):
         return f"Abriendo libro '{self.titulo}' en formato {self.formato}..."
@@ -70,7 +70,7 @@ class LibroDigital(RecursoDigital):
     @staticmethod
     def from_dict(data: Dict[str, Any]) -> "RecursoDigital":
         return LibroDigital(
-            recurso_id = int(data["recurso_id"]),
+            id = int(data["id"]),
             titulo=str(data["titulo"]),
             autor=str(data["autor"]),
             anio=int(data["anio"]),

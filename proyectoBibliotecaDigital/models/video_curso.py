@@ -1,12 +1,13 @@
 from .recurso_digital import RecursoDigital
+from typing import Dict, Any
 
 #---------------------------------
 # Subclase: Videocurso
 #---------------------------------
 
 class VideoCurso(RecursoDigital):
-    def __init__(self, titulo, autor, anio, duracion, nivel):
-        super().__init__(titulo, autor, anio)
+    def __init__(self, id, titulo, autor, anio, duracion, nivel):
+        super().__init__(id, titulo, autor, anio)
         self.__duracion = None
         self.__nivel = None
 
@@ -41,4 +42,28 @@ class VideoCurso(RecursoDigital):
     
     def __str__(self):
         return super().__str__() + f" - duración: {self.duracion} minutos - nivel: {self.nivel}"
+    
+        # -------- JSON ---------
+    #Convierte la instancia de esta clase en una estructura Dict.
+    def to_dict(self) -> Dict[str, Any]:
+        d = super().to_dict()
+        d.update({
+            "duracion": self.duracion,
+            "nivel": self.nivel
+        })
+
+        return d
+    
+    #Convierte una estructura Dict en una instancia de la presente clase
+    @staticmethod
+    def from_dict(data: Dict[str, Any]) -> "RecursoDigital":
+        return Podcast(
+            id = int(data["id"]),
+            titulo=str(data["titulo"]),
+            autor=str(data["autor"]),
+            anio=int(data["anio"]),
+            duracion=int(data["duracion"]),
+            nivel=str(data["nivel"])
+        )
+
     

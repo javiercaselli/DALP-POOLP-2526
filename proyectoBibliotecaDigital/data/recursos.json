@@ -1,7 +1,7 @@
 [
   {
     "tipo": "LibroDigital",
-    "recurso_id": 1,
+    "id": 1,
     "titulo": "Clean Code",
     "autor": "Robert C. Martin",
     "anio": 2008,
@@ -11,12 +11,11 @@
   },
   {
     "tipo": "Podcast",
-    "recurso_id": 2,
+    "id": 2,
     "titulo": "Arquitectura Pythonista",
-    "creador": "TechTalks",
+    "autor": "TechTalks",
     "anio": 2025,
     "episodio": 12,
-    "duracion_min": 41,
-    "feed_url": "https://example.com/feed.xml"
+    "url": "https://example.com/feed.xml"
   }
 ]

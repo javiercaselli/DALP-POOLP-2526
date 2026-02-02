@@ -7,14 +7,16 @@ from typing import Dict, Any
 class RecursoDigital(ABC):
     _contador_id = 1    # Variable de clase 
 
-    def __init__(self, titulo, autor, anio):
-        self.__id = RecursoDigital._contador_id
-        RecursoDigital._contador_id += 1
+    def __init__(self, id, titulo, autor, anio):
+        #self.__id = RecursoDigital._contador_id
+        #RecursoDigital._contador_id += 1
+        self.__id = None
         self.__titulo = None
         self.__autor = None
         self.__anio = None
 
         # Usaremos property para validación y encapsulamiento
+        self.id = id
         self.titulo = titulo
         self.autor = autor
         self.anio = anio
@@ -23,6 +25,12 @@ class RecursoDigital(ABC):
     @property
     def id(self):
         return self.__id
+    
+    @id.setter
+    def id(self, nuevo_id):
+        if not nuevo_id or not isinstance(nuevo_id, int):
+            raise ValueError("El id deber ser un número entero")
+        self.__id = nuevo_id
     
     # ----- título -----
     @property
@@ -79,7 +87,7 @@ class RecursoDigital(ABC):
     def to_dict(self) -> Dict[str, Any]:
         return {
             "tipo": self.tipo(),
-            "recurso_id": self.__id,
+            "id": self.__id,
             "titulo": self.titulo,
             "autor": self.autor,
             "anio": self.anio
