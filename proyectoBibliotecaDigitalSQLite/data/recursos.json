@@ -1,0 +1,21 @@
+[
+  {
+    "tipo": "LibroDigital",
+    "id": 1,
+    "titulo": "Clean Code",
+    "autor": "Robert C. Martin",
+    "anio": 2008,
+    "isbn": "978-0132350884",
+    "num_paginas": 464,
+    "formato": "EPUB"
+  },
+  {
+    "tipo": "Podcast",
+    "id": 2,
+    "titulo": "Arquitectura Pythonista",
+    "autor": "TechTalks",
+    "anio": 2025,
+    "episodio": 12,
+    "url": "https://example.com/feed.xml"
+  }
+]

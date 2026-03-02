@@ -1,0 +1,113 @@
+from abc import ABC, abstractmethod
+from typing import Dict, Any
+#---------------------------------
+# Clase padre: RecursoDigital
+#---------------------------------
+
+class RecursoDigital(ABC):
+    _contador_id = 1    # Variable de clase 
+
+    def __init__(self, id, titulo, autor, anio):
+        #self.__id = RecursoDigital._contador_id
+        #RecursoDigital._contador_id += 1
+        self.__id = None
+        self.__titulo = None
+        self.__autor = None
+        self.__anio = None
+
+        # Usaremos property para validación y encapsulamiento
+        self.id = id
+        self.titulo = titulo
+        self.autor = autor
+        self.anio = anio
+
+    # ----- id (read only) ----
+    @property
+    def id(self):
+        return self.__id
+    
+    @id.setter
+    def id(self, nuevo_id):
+        if not nuevo_id or not isinstance(nuevo_id, int):
+            raise ValueError("El id deber ser un número entero")
+        self.__id = nuevo_id
+    
+    # ----- título -----
+    @property
+    def titulo(self):
+        return self.__titulo
+
+    @titulo.setter
+    def titulo(self, nuevo_titulo):
+        if not nuevo_titulo or not isinstance(nuevo_titulo, str):
+            raise ValueError("El título debe ser un texto no vacío")
+        self.__titulo = nuevo_titulo
+
+    # ---- autor ----
+    @property
+    def autor(self):
+        return self.__autor
+
+    @autor.setter
+    def autor(self, nuevo_autor):
+        if not nuevo_autor or not isinstance(nuevo_autor, str):
+            raise ValueError("El autor debe ser un texto no vacío")
+        self.__autor = nuevo_autor
+
+    @property
+    def anio(self):
+        return self.__anio
+
+    @anio.setter
+    def anio(self, nuevo_anio):
+        if not isinstance(nuevo_anio, int) or not nuevo_anio > 0:
+            raise ValueError("El anio debe ser un entero positivo")
+        self.__anio = nuevo_anio
+
+    # Método común
+    def descripcion_basica(self):
+        return f"Titulo: {self.titulo}, autor: {self.autor}, año: {self.anio}"
+
+    # Metodo abrir (abstracto)
+    @abstractmethod
+    def abrir(self):
+        pass
+
+    # Método tipo (abstracto)
+    @abstractmethod
+    def tipo(self):
+        pass
+
+    # Método __str__
+    def __str__(self):
+        return f"[{self.id}] ({self.tipo()}) {self.descripcion_basica()}"
+    
+    # -------- JSON ---------
+    #Convierte la instancia de esta clase en una estructura Dict.
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "tipo": self.tipo(),
+            "id": self.__id,
+            "titulo": self.titulo,
+            "autor": self.autor,
+            "anio": self.anio
+        }
+    
+    #Convierte una estructura Dict en una instancia de la presente clase
+    @staticmethod
+    def from_dict(data: Dict[str, Any]) -> "RecursoDigital":
+        from models import LibroDigital, VideoCurso, Podcast
+
+        tipo = data["tipo"]
+
+        if tipo == "LibroDigital":
+            return LibroDigital.from_dict(data)
+        elif tipo == "VideoCurso":
+            return VideoCurso.from_dict(data)
+        elif tipo == "Podcast":
+            return Podcast.from_dict(data)
+        else:
+            raise ValueError("Tipo desconocido")
+
+
+
