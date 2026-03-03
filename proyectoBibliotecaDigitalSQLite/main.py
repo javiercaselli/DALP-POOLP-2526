@@ -1,8 +1,8 @@
 from __future__ import annotations
 from models import RecursoDigital, LibroDigital, VideoCurso, Podcast
 from services import BibliotecaDigital
-from persistence.json_manager import guardar_recursos, cargar_recursos
-from persistence.sqlite_manager import init_db
+#from persistence.json_manager import guardar_recursos, cargar_recursos
+from persistence.sqlite_manager import init_db, cargar_recursos
 
 RUTA_JSON = "proyectoBibliotecaDigitalSQLite/data/recursos.json"
 RUTA_DB = "proyectoBibliotecaDigitalSQLite/data/recursos.db"
@@ -21,6 +21,8 @@ init_db(RUTA_DB)
 
 #3 Imprime el menú
 mostrar_menu()
+
+cargar_recursos(RUTA_DB)
 
 
 

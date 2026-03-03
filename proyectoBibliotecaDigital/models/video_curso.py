@@ -57,7 +57,7 @@ class VideoCurso(RecursoDigital):
     #Convierte una estructura Dict en una instancia de la presente clase
     @staticmethod
     def from_dict(data: Dict[str, Any]) -> "RecursoDigital":
-        return Podcast(
+        return VideoCurso(
             id = int(data["id"]),
             titulo=str(data["titulo"]),
             autor=str(data["autor"]),

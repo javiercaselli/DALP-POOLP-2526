@@ -17,5 +17,14 @@
     "anio": 2025,
     "episodio": 12,
     "url": "https://example.com/feed.xml"
+  },
+  {
+    "tipo": "VideoCurso",
+    "id": 3,
+    "titulo": "Python para Dummies",
+    "autor": "Javier Caselli",
+    "anio": 2026,
+    "duracion": 240,
+    "nivel": "Principiante"
   }
 ]
