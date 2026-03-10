@@ -12,8 +12,7 @@ class BibliotecaDigital:
         self.__recursos.append(recurso)
 
     def listar_recursos(self) -> List[RecursoDigital]:
-        for recurso in self.__recursos:
-            print (recurso)
+        return self.__recursos
 
     def abrir_todos(self) -> None:
         print("=== Abriendo todos los recursos ===")
@@ -29,3 +28,12 @@ class BibliotecaDigital:
             if r.id == id:
                 return r
         return None
+    
+    def borrar_recurso(self, id: int) -> bool:
+        recurso = self.buscar_por_id(id)
+
+        if not recurso:
+            return False
+        else:
+            self.__recursos.remove(recurso)
+            return True

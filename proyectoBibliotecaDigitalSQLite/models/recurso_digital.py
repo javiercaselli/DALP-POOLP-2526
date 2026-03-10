@@ -28,9 +28,12 @@ class RecursoDigital(ABC):
     
     @id.setter
     def id(self, nuevo_id):
-        if not nuevo_id or not isinstance(nuevo_id, int):
+        if not nuevo_id:
+            self.__id = None 
+        elif not isinstance(nuevo_id, int):
             raise ValueError("El id deber ser un número entero")
-        self.__id = nuevo_id
+        else:
+            self.__id = nuevo_id
     
     # ----- título -----
     @property

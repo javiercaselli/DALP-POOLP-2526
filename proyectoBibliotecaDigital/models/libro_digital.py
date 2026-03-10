@@ -49,7 +49,7 @@ class LibroDigital(RecursoDigital):
         return f"Abriendo libro '{self.titulo}' en formato {self.formato}..."
     
     def tipo(self):
-        return "Libro"
+        return "LibroDigital"
     
     def __str__(self):
         return super().__str__() + f" - Nº Pags.: {self.num_paginas} - formato: {self.formato}"

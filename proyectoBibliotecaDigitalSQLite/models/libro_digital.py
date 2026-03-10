@@ -13,8 +13,8 @@ class LibroDigital(RecursoDigital):
         self.__isbn = None
 
         self.num_paginas = num_paginas
-        self.formato = formato
         self.isbn = isbn
+        self.formato = formato
 
     @property
     def num_paginas(self):
@@ -44,12 +44,13 @@ class LibroDigital(RecursoDigital):
     def isbn(self, isbn):
         if not isbn or not isinstance(isbn, str):
             raise ValueError("El ISBN debe ser un cadena de caracteres")
+        self.__isbn = isbn
 
     def abrir(self):
         return f"Abriendo libro '{self.titulo}' en formato {self.formato}..."
     
     def tipo(self):
-        return "Libro"
+        return "LibroDigital"
     
     def __str__(self):
         return super().__str__() + f" - Nº Pags.: {self.num_paginas} - formato: {self.formato}"
@@ -69,13 +70,15 @@ class LibroDigital(RecursoDigital):
     #Convierte una estructura Dict en una instancia de la presente clase
     @staticmethod
     def from_dict(data: Dict[str, Any]) -> "RecursoDigital":
-        return LibroDigital(
+        libroDigital = LibroDigital(
             id = int(data["id"]),
             titulo=str(data["titulo"]),
             autor=str(data["autor"]),
             anio=int(data["anio"]),
             num_paginas=int(data["num_paginas"]),
-            formato=str(data["formato"]),
-            isbn=str(data["isbn"])
+            isbn=str(data["isbn"]),
+            formato=str(data["formato"])
         )
+
+        return libroDigital
 

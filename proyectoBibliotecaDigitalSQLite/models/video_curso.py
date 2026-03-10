@@ -38,7 +38,7 @@ class VideoCurso(RecursoDigital):
         return f"Reproduciendo videoclase '{self.titulo}' nivel {self.nivel}, duración {self.duracion} min..."
     
     def tipo(self):
-        return "Vídeo"
+        return "VideoCurso"
     
     def __str__(self):
         return super().__str__() + f" - duración: {self.duracion} minutos - nivel: {self.nivel}"
